@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Deformable Neural Radiance Fields creates free-viewpoint portraits (nerfies) from casually captured videos.">
+  <meta name="keywords" content="Nerfies, D-NeRF, NeRF">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Deep Whole-body Parkour</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://project-instinct.github.io">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://robot-parkour.github.io">
+            Robot Parkour Learning
+          </a>
+          <a class="navbar-item" href="https://humanoid4parkour.github.io">
+            Humanoid Parkour Learning
+          </a>
+          <a class="navbar-item" href="https://project-instinct.github.io/embrace-collisions">
+            Embrace Collisions
+          </a>
+          <a class="navbar-item" href="https://project-instinct.github.io/deep-whole-body-parkour">
+            Deep Whole-body Parkour
+          </a>
+          <a class="navbar-item" href="https://project-instinct.github.io/hiking-in-the-wild">
+            Hiking in the Wild
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+<section class="hero is-link video" style="position:relative; height: 56.25vw; min-height: 100vh;">
+  <div class="hero-video" style="position: absolute; left: 50%; top: 0; transform: translateX(-50%); height: 100%; width: 177.77777778vh; min-width: 100%;">
+    <video playsinline autoplay muted loop preload="auto" poster="./static/images/teaser_poster.png" style="width: 100%; height: 100%; object-position: center center; object-fit: cover;">
+      <source src="./static/videos/deep-whole-body-parkour-teaser.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="hero-video is-hidden-tablet is-inline-block-mobile"
+    style="position: absolute; left: 50%; top: 0; transform: translateX(-50%); height: 100%; width: 100%;">
+    <video playsinline autoplay muted loop preload="auto" poster="./static/images/teaser_poster.png" style="width: 100%; height: 100%; object-position: center center; object-fit: cover;">
+      <source src="./static/videos/deep-whole-body-parkour-teaser.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="overlay"></div>
+</section>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Deep Whole-body Parkour</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https:/ziwenzhuang.github.io">Ziwen Zhuang</a><sup>1</sup>,</span>
+              <a href="">Shaoting Zhu</a><sup>1</sup>,</span>
+              <a href="">Mengjie Zhao</a><sup>1</sup>,</span>
+              <a href="https:/hangzhaomit.github.io">Hang Zhao</a><sup>1</sup>,</span>
+          </div>
+          <div class="column">
+              <image src="./static/images/logo.png" style="width: 60%;"></image>
+          </div>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Tsinghua University</span>
+          </div>
+
+        <div class="column has-text-centered">
+          <div class="publication-links">
+            <!-- PDF Link. -->
+            <span class="link-block">
+              <a href="https://arxiv.org/pdf/2011.12948"
+                 class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                  <i class="fas fa-file-pdf"></i>
+                </span>
+                <span>Paper</span>
+              </a>
+            </span>
+            <span class="link-block">
+              <a href="https://arxiv.org/abs/2011.12948"
+                 class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                  <i class="ai ai-arxiv"></i>
+                </span>
+                <span>arXiv</span>
+              </a>
+            </span>
+            <!-- Video Link. -->
+            <span class="link-block">
+              <a href="https://www.youtube.com/watch?v=MrKrnHhk8IA"
+                 class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                  <i class="fab fa-youtube"></i>
+                </span>
+                <span>Video</span>
+              </a>
+            </span>
+            <!-- Code Link. -->
+            <span class="link-block">
+              <a href="https://github.com/ziwenzhuang/InstinctLab"
+                 class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                  <i class="fab fa-github"></i>
+                </span>
+                <span>Code</span>
+              </a>
+            </span>
+            <!-- Dataset Link. -->
+            <span class="link-block">
+              <a href="https://github.com/google/nerfies/releases/tag/0.1"
+                 class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                  <i class="far fa-images"></i>
+                </span>
+                <span>Data</span>
+              </a>
+            </span>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Current approaches to humanoid control generally fall into two paradigms: perceptive locomotion, which handles terrain well but is limited to pedal gaits, and general motion tracking, which reproduces complex skills but ignores environmental capabilities. This work unites these paradigms to achieve perceptive general motion control. We present a framework where exteroceptive sensing is integrated into whole-body motion tracking, permitting a humanoid to perform highly dynamic, non-locomotion tasks on uneven terrain. By training a single policy to perform multiple distinct motions across varied terrestrial features, we demonstrate the non-trivial benefit of integrating perception into the control loop. Our results show that this framework enables robust, highly dynamic multi-contact motions—such as vaulting and dive-rolling—on unstructured terrain, significantly expanding the robot's traversability beyond simple walking or running.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Kneel Climb</h2>
+    <div class="columns is-centered is-multiline">
+      <div class="column is-6-tablet is-12-mobile">
+        <div class="content">
+          <video id="kneelClimb-1" autoplay muted loop controls playsinline height="100%">
+            <source src="./static/videos/kneelClimb-1-web.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <div class="column is-6-tablet is-12-mobile">
+        <div class="content">
+          <video id="kneelClimb-2" autoplay muted loop controls playsinline height="100%">
+            <source src="./static/videos/kneelClimb-2-web.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+    <div class="columns is-centered is-multiline">
+      <div class="column is-6-tablet is-12-mobile">
+        <div class="content">
+          <video id="kneelClimb-3" autoplay muted loop controls playsinline height="100%">
+            <source src="./static/videos/kneelClimb-3-web.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <div class="column is-6-tablet is-12-mobile">
+        <div class="content">
+          <video id="kneelClimb-4" autoplay muted loop controls playsinline height="100%">
+            <source src="./static/videos/kneelClimb-4-web.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+    <div class="columns is-centered is-multiline">
+      <div class="column is-6-tablet is-12-mobile">
+        <div class="content">
+          <video id="kneelClimb-5" autoplay muted loop controls playsinline height="100%">
+            <source src="./static/videos/kneelClimb-5-web.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Dive Roll</h2>
+    <div class="columns is-centered is-multiline">
+      <div class="column is-6-tablet is-12-mobile">
+        <div class="content">
+          <video id="diveRoll-1" autoplay muted loop controls playsinline height="100%">
+            <source src="./static/videos/diveRoll-1-web.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <div class="column is-6-tablet is-12-mobile">
+        <div class="content">
+          <video id="diveRoll-2" autoplay muted loop controls playsinline height="100%">
+            <source src="./static/videos/diveRoll-2-web.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+    <div class="columns is-centered is-multiline">
+      <div class="column is-6-tablet is-12-mobile">
+        <div class="content">
+          <video id="diveRoll-3" autoplay muted loop controls playsinline height="100%">
+            <source src="./static/videos/diveRoll-3-web.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Roll Vault</h2>
+    <div class="columns is-centered is-multiline">
+      <div class="column is-6-tablet is-12-mobile">
+        <div class="content">
+          <video id="rollVault-1" autoplay muted loop controls playsinline height="100%">
+            <source src="./static/videos/rollVault-1-web.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <div class="column is-6-tablet is-12-mobile">
+        <div class="content">
+          <video id="rollVault-2" autoplay muted loop controls playsinline height="100%">
+            <source src="./static/videos/rollVault-2-web.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Auto position-correction from depth sensing</h2>
+    <div class="columns is-centered is-multiline">
+      <div class="column is-6-tablet is-12-mobile">
+        <div class="content">
+          <video id="convergence-kneelClimbStep" autoplay muted loop controls playsinline height="100%">
+            <source src="./static/videos/convergence-kneelClimbStep.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <div class="column is-6-tablet is-12-mobile">
+        <div class="content">
+          <video id="convergence-diveRoll" autoplay muted loop controls playsinline height="100%">
+            <source src="./static/videos/convergence-diveRoll.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <div class="column is-6-tablet is-12-mobile">
+        <div class="content">
+          <video id="convergence-jumpSit" autoplay muted loop controls playsinline height="100%">
+            <source src="./static/videos/convergence-jumpSit.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <div class="column is-6-tablet is-12-mobile">
+        <div class="content">
+          <video id="convergence-rollVault" autoplay muted loop controls playsinline height="100%">
+            <source src="./static/videos/convergence-rollVault.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Surviving Distractors</h2>
+    <div class="columns is-centered is-multiline">
+      <div class="column is-6-tablet is-12-mobile">
+        <div class="content">
+          <video id="distractor0" autoplay muted loop controls playsinline height="100%">
+            <source src="./static/videos/distractor0.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <div class="column is-6-tablet is-12-mobile">
+        <div class="content">
+          <video id="distractor1" autoplay muted loop controls playsinline height="100%">
+            <source src="./static/videos/distractor1.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <div class="column is-6-tablet is-12-mobile">
+        <div class="content">
+          <video id="distractor2" autoplay muted loop controls playsinline height="100%">
+            <source src="./static/videos/distractor2.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <div class="column is-6-tablet is-12-mobile">
+        <div class="content">
+          <video id="distractor3" autoplay muted loop controls playsinline height="100%">
+            <source src="./static/videos/distractor3.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Jump Sit</h2>
+    <div class="columns is-centered is-multiline">
+      <div class="column is-6-tablet is-12-mobile">
+        <div class="content">
+          <video id="jumpSit-1" autoplay muted loop controls playsinline height="100%">
+            <source src="./static/videos/jumpSit-1-web.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <div class="column is-6-tablet is-12-mobile">
+        <div class="content">
+          <video id="jumpSit-2" autoplay muted loop controls playsinline height="100%">
+            <source src="./static/videos/jumpSit-2-web.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container content">
+    <h2 class="titile">BibTeX</h2>
+    <pre><code>TBD</code></pre>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            This means you are free to borrow the <a
+              href="https://github.com/project-instinct/project-instinct.github.io">source code</a> of this website,
+            we just ask that you link back to this page in the footer.
+            Please remember to remove the analytics code included in the header of the website which
+            you do not want on your website.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
